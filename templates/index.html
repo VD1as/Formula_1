@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Championships</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>F1 Championships</h1>
+    
+    <ul>
+        {% for year, championship in championships.items() %}
+        <li>
+            <h2>Championship {{ year }}</h2>
+            <ul>
+                {% for race in championship.get_races() %}
+                <li>
+                    <strong>{{ race.circuit.name }}</strong> - {{ race.date }} <br>
+                    <em>Results:</em>
+                    <ul>
+                        {% for driver, position in race.get_results() %}
+                        <li>{{ driver.name }} - Position: {{ position }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
